@@ -22,7 +22,7 @@ const request = indexedDB.open('travel_budget', 1);
 // the onupgradeneeded listener  handles the event of a change to the database
 // structure ie when when we first connect to indexedDB or if the version changes.
 
-request.onupgradeneeded = function(event) {
+request.onupgradeneeded = function (event) {
   const db = event.target.result;
   // create a locally-scoped connection to the db &
   // create the object store(table) called`new_entry`,
@@ -38,14 +38,14 @@ request.onupgradeneeded = function(event) {
 // onsuccess emits every time we interact with the database, 
 //so every time it runs we check to see if the app is connected 
 //to the network. If so, upload the budget transaction.
-request.onsuccess = function(event) {
+request.onsuccess = function (event) {
   db = event.target.result;
   if (navigator.onLine) {
     uploadEntries();
   }
 };
 
-request.onerror = function(event) {
+request.onerror = function (event) {
   console.log(event.target.errorCode);
 };
 
@@ -65,6 +65,10 @@ function saveRecord(record) {
 }
 
 function uploadEntries() {
+  const NetworkStatusEl = document.getElementById("network-status");
+  NetworkStatusEl.textContent = "ONLINE";
+  NetworkStatusEl.className = "online";
+
   // open a transaction on the pending db
   const transaction = db.transaction(['new_entry'], 'readwrite');
   // access your pending object store
@@ -76,7 +80,7 @@ function uploadEntries() {
   getAll.onsuccess = function () {
     // if there was data in indexedDb's store, send it to the api server
     if (getAll.result.length > 0) {
-      fetch('/api/transaction', { 
+      fetch('/api/transaction', {
         method: 'POST',
         body: JSON.stringify(getAll.result),
         headers: {
@@ -93,7 +97,6 @@ function uploadEntries() {
           const budgetEntryObjectStore = transaction.objectStore('new_entry');
           // clear all items in your store
           budgetEntryObjectStore.clear();
-          alert('Back online: budget has been updated');
         })
         .catch(err => {
           // set reference to redirect back here
@@ -103,22 +106,15 @@ function uploadEntries() {
   };
 }
 
+// Set the status button to "offline" - uploadEntries
+// does the opposite when we go online.
+
+function showOfflineStatus() {
+  const NetworkStatusEl = document.getElementById("network-status");
+  NetworkStatusEl.textContent = "OFFLINE";
+  NetworkStatusEl.className = "offline";
+}
 
 // listen for online connection
-// window.addEventListener('online', uploadEntries);
-// ***************************************************
-// set network status indicator "button" 
-
-window.addEventListener('DOMContentLoaded', function() {
-  var NetworkStatusEl = document.getElementById("#network-status");
-
-  function updateOnlineStatus(event) {
-    const status = navigator.onLine ? "online" : "offline";
-    console.log(`registering status: ${status}`);
-    if (status === "online") uploadEntries();
-    NetworkStatusEl.className = status;
-    NetworkStatusEl.textContent = status.toUpperCase();
-  }
-  window.addEventListener('online',  updateOnlineStatus);
-  window.addEventListener('offline', updateOnlineStatus);
-});
+window.addEventListener('online', uploadEntries);
+window.addEventListener('offline', showOfflineStatus);

@@ -1,6 +1,6 @@
 const APP_PREFIX = 'Budget-';
 // changing cache version forces refresh
-const VERSION = 'version_04';  
+const VERSION = 'version_05';  
 const CACHE_NAME = APP_PREFIX + VERSION
 const FILES_TO_CACHE = [
   "/",
