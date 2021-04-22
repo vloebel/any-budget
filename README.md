@@ -6,7 +6,9 @@
   ## UA Web Coding Bootcamp Challenge - Week 18
   
   ## Description  
-  Any-Budget is a PWA (Progressive Web Application) that can be added add as an app on the home screen of a mobile device and used to track budget expenses and deposits, with or without a data network or internet connection. Offline transactions are reconciled when connection is reestablished.  
+  Any-Budget is a PWA (Progressive Web Application) that can be added add as an app on the home screen of a mobile device and used to track budget expenses and deposits, with or without a data network or internet connection. Offline transactions are reconciled when connection is reestablished.   
+
+  NOTE: A status "button" informs the user when the application is online (green) or offline (orange); 
 
   Any-Budget is based on source code from the University of Arizona's Web Developer Bootcamp, Module 19, and is subject to that program's copyright and restrictions.
 
