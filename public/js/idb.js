@@ -34,8 +34,6 @@ request.onupgradeneeded = function(event) {
 // when db is successfully created with its object store 
 // (from onupgradedneeded event above), 
 // save reference to db in global variable
-//todo why is db above locally scoped? And how does it then get here?
-
 
 // onsuccess emits every time we interact with the database, 
 //so every time it runs we check to see if the app is connected 
@@ -74,9 +72,8 @@ function uploadEntries() {
   // get all records from store and set to a variable
   const getAll = budgetEntryObjectStore.getAll();
 
-  // upon a successful .getAll() execution, run this function
+  // upon successful .getAll() above, run this function
   getAll.onsuccess = function () {
-    console.log (`xxxx gotALL with success`)
     // if there was data in indexedDb's store, send it to the api server
     if (getAll.result.length > 0) {
       fetch('/api/transaction', { 
@@ -96,7 +93,7 @@ function uploadEntries() {
           const budgetEntryObjectStore = transaction.objectStore('new_entry');
           // clear all items in your store
           budgetEntryObjectStore.clear();
-          alert('Back online: entries have been updated');
+          alert('Back online: budget has been updated');
         })
         .catch(err => {
           // set reference to redirect back here
