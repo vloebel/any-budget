@@ -10,7 +10,7 @@
 
   **NOTE: A status "button" informs the user when the application is online (green) or offline (orange)** 
 
-  Any-Budget is based on source code from the University of Arizona's Web Developer Bootcamp, Module 19, and is subject to that program's copyright and restrictions.
+  Any-Budget is based on source code from the University of Arizona's Web Developer Bootcamp, Module 19, and is subject to that program's copyright and/or restrictions.
 
   ## Heroku Link
   The application is deployed at: [vl-any-budget](https://vl-any-budget.herokuapp.com/)  
