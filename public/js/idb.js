@@ -74,8 +74,9 @@ function uploadEntries() {
   // get all records from store and set to a variable
   const getAll = budgetEntryObjectStore.getAll();
 
-  //* So this is a closure with access to above constants?
-  getAll.onsuccess = function() { 
+  // upon a successful .getAll() execution, run this function
+  getAll.onsuccess = function () {
+    console.log (`xxxx gotALL with success`)
     // if there was data in indexedDb's store, send it to the api server
     if (getAll.result.length > 0) {
       fetch('/api/transaction', { 
@@ -95,6 +96,7 @@ function uploadEntries() {
           const budgetEntryObjectStore = transaction.objectStore('new_entry');
           // clear all items in your store
           budgetEntryObjectStore.clear();
+          alert('Back online: entries have been updated');
         })
         .catch(err => {
           // set reference to redirect back here
