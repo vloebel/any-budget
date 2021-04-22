@@ -62,10 +62,6 @@ function saveRecord(record) {
   const budgetEntryObjectStore = transaction.objectStore('new_entry');
   // add the record 
   budgetEntryObjectStore.add(record);
-  // set the network status button 
-    NetworkStatusEl.textContent = "OFFLINE";
-    NetworkStatusEl.removeAttribute("network-online");
-    NetworkStatusEl.setAttribute("class", "network-offline");
 }
 
 function uploadEntries() {
@@ -98,9 +94,6 @@ function uploadEntries() {
           // clear all items in your store
           budgetEntryObjectStore.clear();
           alert('Back online: budget has been updated');
-          NetworkStatusEl.textContent = "ONLINE";
-          NetworkStatusEl.removeAttribute("network-offline");
-          NetworkStatusEl.setAttribute("class", "network-online");
         })
         .catch(err => {
           // set reference to redirect back here
@@ -110,8 +103,22 @@ function uploadEntries() {
   };
 }
 
-// get the network status button
-const NetworkStatusEl = document.querySelector("#btn-network-status");
 
 // listen for online connection
-window.addEventListener('online', uploadEntries);
+// window.addEventListener('online', uploadEntries);
+// ***************************************************
+// set network status indicator "button" 
+
+window.addEventListener('DOMContentLoaded', function() {
+  var NetworkStatusEl = document.getElementById("#network-status");
+
+  function updateOnlineStatus(event) {
+    const status = navigator.onLine ? "online" : "offline";
+    console.log(`registering status: ${status}`);
+    if (status === "online") uploadEntries();
+    NetworkStatusEl.className = status;
+    NetworkStatusEl.textContent = status.toUpperCase();
+  }
+  window.addEventListener('online',  updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+});

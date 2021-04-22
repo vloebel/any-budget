@@ -43,11 +43,11 @@ tr:nth-child(even) {
   line-height:1em;
   flex: 0 0 20%;
 }
-.network-online {
+.online {
   background: #1cb841;
 }
 
-.network-offline {
+.offline {
   background: rgb(223, 117, 20);
 }
 
