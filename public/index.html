@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,47 +18,52 @@
   <script src="js/idb.js" defer></script>
   <title>Any Budget</title>
 </head>
+
 <body>
   <div class="wrapper">
-    <div class="total">
+    <div class="status-bar">
+      <button id="btn-network-status">CHANGE ME</button>
+      <div class="total">
       <div class="total">Your total is: $<span id="total">0</span></div>
     </div>
+  </div>
 
-    <div class="form">
-      <input type="text" id="t-name" placeholder="Name of transaction" />
-      <input type="number" min="0" id="t-amount" placeholder="Transaction amount" />
-      <button id="add-btn"><i class="fa fa-plus buttons"></i> Add Funds</button>
-      <button id="sub-btn"><i class="fa fa-minus"></i> Subtract Funds</button>
-      <p class="error"></p>
-    </div>
+  <div class="form">
+    <input type="text" id="t-name" placeholder="Name of transaction" />
+    <input type="number" min="0" id="t-amount" placeholder="Transaction amount" />
+    <button id="add-btn"><i class="fa fa-plus buttons"></i> Add Funds</button>
+    <button id="sub-btn"><i class="fa fa-minus"></i> Subtract Funds</button>
+    <p class="error"></p>
+  </div>
 
-    <div class="transactions">
-      <table>
-        <thead>
-          <th>Transaction</th>
-          <th>Amount</th>
-        </thead>
-        <tbody id="tbody">
-          
-        </tbody>
-      </table>
-    </div>
-    
-    <canvas id="myChart"></canvas>
+  <div class="transactions">
+    <table>
+      <thead>
+        <th>Transaction</th>
+        <th>Amount</th>
+      </thead>
+      <tbody id="tbody">
+
+      </tbody>
+    </table>
+  </div>
+
+  <canvas id="myChart"></canvas>
   </div>
 </body>
 <!-- Register the service worker if this browser supports their use-->
-  
-  <script type="text/javascript">
-    (function() {
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("./service-worker.js")
-          .then(() => console.log("Service Worker registered successfully."))
-          .catch(error =>
-            console.log("Service Worker registration failed:", error)
-          );
-      }
-    })();
-    </script>
+
+<script type="text/javascript">
+  (function () {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("./service-worker.js")
+        .then(() => console.log("Service Worker registered successfully."))
+        .catch(error =>
+          console.log("Service Worker registration failed:", error)
+        );
+    }
+  })();
+</script>
+
 </html>

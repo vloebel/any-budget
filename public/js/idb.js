@@ -62,6 +62,10 @@ function saveRecord(record) {
   const budgetEntryObjectStore = transaction.objectStore('new_entry');
   // add the record 
   budgetEntryObjectStore.add(record);
+  // set the network status button 
+    NetworkStatusEl.textContent = "OFFLINE";
+    NetworkStatusEl.removeAttribute("network-online");
+    NetworkStatusEl.setAttribute("class", "network-offline");
 }
 
 function uploadEntries() {
@@ -94,6 +98,9 @@ function uploadEntries() {
           // clear all items in your store
           budgetEntryObjectStore.clear();
           alert('Back online: budget has been updated');
+          NetworkStatusEl.textContent = "ONLINE";
+          NetworkStatusEl.removeAttribute("network-offline");
+          NetworkStatusEl.setAttribute("class", "network-online");
         })
         .catch(err => {
           // set reference to redirect back here
@@ -102,6 +109,9 @@ function uploadEntries() {
     }
   };
 }
+
+// get the network status button
+const NetworkStatusEl = document.querySelector("#btn-network-status");
 
 // listen for online connection
 window.addEventListener('online', uploadEntries);
